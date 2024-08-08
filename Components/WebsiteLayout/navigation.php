@@ -32,7 +32,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                </div>
             </div>
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
-               <a class="buy" href="#">Login</a>
+               <a class="buy" href="login.php">Login</a>
             </div>
          </div>
       </div>

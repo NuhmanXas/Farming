@@ -1,8 +1,8 @@
 <?php 
 $title = "CRAS Home";
-include 'Components/header.php'; 
-include 'Components/navigation.php'; 
-include 'Components/loader.php'; 
+include 'Components/WebsiteLayout/header.php'; 
+include 'Components/WebsiteLayout/navigation.php'; 
+include 'Components/WebsiteLayout/loader.php'; 
 ?>
        
       <main>
@@ -29,6 +29,6 @@ include 'Components/loader.php';
 
    
   <?php 
-include 'Components/footer.php'; 
-include 'Components/scripts.php'; 
+include 'Components/WebsiteLayout/footer.php'; 
+include 'Components/WebsiteLayout/scripts.php'; 
 ?>

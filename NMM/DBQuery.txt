@@ -2,60 +2,69 @@
 CREATE DATABASE CRAS_DB;
 USE CRAS_DB;
 
--- Create Users table with an image column
-CREATE TABLE Users (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    village VARCHAR(100),
-    land_area DECIMAL(10, 2),
-    nic_number VARCHAR(12) NOT NULL UNIQUE,
-    profile_image_url VARCHAR(255) -- URL/path to the user's profile image
+-- Create Farmers table
+CREATE TABLE Farmers (
+    farmer_id INT AUTO_INCREMENT PRIMARY KEY,
+    farm_name VARCHAR(100) NOT NULL,
+    address VARCHAR(255),
+    contact_number VARCHAR(15),
+    email VARCHAR(100),
+    farm_size DECIMAL(10, 2),
+    farming_experience INT, -- Number of years of farming experience
+    profile_image_url VARCHAR(255) -- URL/path to the farmer's profile image
 );
 
--- Create Crops table with an image column
+-- Create Crops table
 CREATE TABLE Crops (
     crop_id INT AUTO_INCREMENT PRIMARY KEY,
     crop_name VARCHAR(100) NOT NULL,
-    description TEXT,
-    recommended_practices TEXT,
+    scientific_name VARCHAR(100), -- Scientific name of the crop
+    suitable_season VARCHAR(50), -- Suitable season for growing the crop
+    seed_requirement DECIMAL(10, 2), -- Seed requirement per unit area (e.g., per acre)
     crop_image_url VARCHAR(255) -- URL/path to the crop image
 );
 
--- Create Yields table with an image column
-CREATE TABLE Yields (
-    yield_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
+-- Create Varieties table (Crop Varieties)
+CREATE TABLE Varieties (
+    variety_id INT AUTO_INCREMENT PRIMARY KEY,
     crop_id INT,
-    yield_date DATE NOT NULL,
-    revenue DECIMAL(10, 2),
-    yield_image_url VARCHAR(255), -- URL/path to the yield image
-    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    variety_name VARCHAR(100) NOT NULL,
+    spacing VARCHAR(50), -- Spacing required for this variety
+    variety_image_url VARCHAR(255), -- URL/path to the variety image
     FOREIGN KEY (crop_id) REFERENCES Crops(crop_id)
+);
+
+-- Create Fertilization table
+CREATE TABLE Fertilization (
+    fertilization_id INT AUTO_INCREMENT PRIMARY KEY,
+    variety_id INT,
+    fertilization_method VARCHAR(255) NOT NULL,
+    fertilization_description TEXT,
+    time_of_application VARCHAR(50), -- Time of application for fertilization
+    fertilization_image_url VARCHAR(255), -- URL/path to the fertilization image
+    FOREIGN KEY (variety_id) REFERENCES Varieties(variety_id)
 );
 
 -- Create Tasks table
 CREATE TABLE Tasks (
     task_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    crop_id INT,
+    farmer_id INT,
+    variety_id INT,
     task_date DATE NOT NULL,
     task_description TEXT NOT NULL,
     task_image_url VARCHAR(255), -- URL/path to the task image
-    FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    FOREIGN KEY (crop_id) REFERENCES Crops(crop_id)
+    FOREIGN KEY (farmer_id) REFERENCES Farmers(farmer_id),
+    FOREIGN KEY (variety_id) REFERENCES Varieties(variety_id)
 );
 
 -- Create Advisory table
 CREATE TABLE Advisory (
     advisory_id INT AUTO_INCREMENT PRIMARY KEY,
-    crop_id INT,
+    variety_id INT,
     best_practices TEXT NOT NULL,
     estimated_costs DECIMAL(10, 2),
     advisory_image_url VARCHAR(255), -- URL/path to the advisory image
-    FOREIGN KEY (crop_id) REFERENCES Crops(crop_id)
+    FOREIGN KEY (variety_id) REFERENCES Varieties(variety_id)
 );
 
 -- Create Admins table
@@ -63,37 +72,5 @@ CREATE TABLE Admins (
     admin_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    admin_image_url VARCHAR(255) -- URL/path to the admin profile image
-);
-
--- Create UserRoles table
-CREATE TABLE UserRoles (
-    role_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    role_name VARCHAR(50) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
-
--- Create a table to manage all kinds of details by Admin
-CREATE TABLE AdminManagement (
-    management_id INT AUTO_INCREMENT PRIMARY KEY,
-    admin_id INT,
-    management_type VARCHAR(50) NOT NULL,
-    management_description TEXT,
-    management_image_url VARCHAR(255), -- URL/path to the management image
-    FOREIGN KEY (admin_id) REFERENCES Admins(admin_id)
-);
-
--- Create Farmers table
-CREATE TABLE Farmers (
-    farmer_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    farm_name VARCHAR(100) NOT NULL,
-    address VARCHAR(255),
-    contact_number VARCHAR(15),
-    email VARCHAR(100),
-    farm_size DECIMAL(10, 2),
-    farming_experience INT, -- Number of years of farming experience
-    profile_image_url VARCHAR(255), -- URL/path to the farmer's profile image
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) -- Link to Users table
+    profile_image_url VARCHAR(255) -- URL/path to the admin profile image
 );

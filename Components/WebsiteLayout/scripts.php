@@ -1,4 +1,4 @@
-<!-- Javascript files--> 
+<!-- Javascript files -->
 <script src="js/jquery.min.js"></script> 
 <script src="js/popper.min.js"></script> 
 <script src="js/jquery-3.0.0.min.js"></script> 
@@ -7,6 +7,14 @@
 <script src="js/jquery.mCustomScrollbar.concat.min.js"></script> 
 <script src="js/custom.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+<!-- Toastify JS -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<!-- SweetAlert2 JS -->
+<script src="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js
+"></script>
+
 <script>
    $(document).ready(function(){
       $(".fancybox").fancybox({
@@ -20,5 +28,3 @@
       });
    });
 </script>
-</body>
-</html>
